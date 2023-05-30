@@ -1,0 +1,127 @@
+from tkinter import * 
+from PIL import ImageTk ,Image
+
+
+root= Tk()
+root.title("Images Viewer")
+
+
+# open Image
+my_img1= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img1.jpg")
+my_img2= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img2.jpg")
+my_img3= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img3.jpg")
+my_img4= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img4.jpg")
+my_img5= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img5.jpg")
+my_img6= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img6.jpg")
+my_img7= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img7.jpg")
+my_img8= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img8.jpg")
+my_img9= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img9.jpg")
+my_img10= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img10.jpg")
+my_img11= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img11.jpg")
+my_img12= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img12.jpg")
+my_img13= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img13.jpg")
+my_img14= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img14.jpg")
+my_img15= Image.open("D:/Network programming Lab/Tkinter Gui/Images/img15.jpg")
+
+# resize Image
+resize_img1=my_img1.resize((300,225),Image.ANTIALIAS)
+resize_img2=my_img2.resize((300,225),Image.ANTIALIAS)
+resize_img3=my_img3.resize((300,225),Image.ANTIALIAS)
+resize_img4=my_img4.resize((300,225),Image.ANTIALIAS)
+resize_img5=my_img5.resize((300,225),Image.ANTIALIAS)
+resize_img6=my_img6.resize((300,225),Image.ANTIALIAS)
+resize_img7=my_img7.resize((300,225),Image.ANTIALIAS)
+resize_img8=my_img8.resize((300,225),Image.ANTIALIAS)
+resize_img9=my_img9.resize((300,225),Image.ANTIALIAS)
+resize_img10=my_img10.resize((300,225),Image.ANTIALIAS)
+resize_img11=my_img11.resize((300,225),Image.ANTIALIAS)
+resize_img12=my_img12.resize((300,225),Image.ANTIALIAS)
+resize_img13=my_img13.resize((300,225),Image.ANTIALIAS)
+resize_img14=my_img14.resize((300,225),Image.ANTIALIAS)
+resize_img15=my_img15.resize((300,225),Image.ANTIALIAS)
+
+picture_1 =ImageTk.PhotoImage(resize_img1)
+picture_2 =ImageTk.PhotoImage(resize_img2)
+picture_3 =ImageTk.PhotoImage(resize_img3)
+picture_4 =ImageTk.PhotoImage(resize_img4)
+picture_5 =ImageTk.PhotoImage(resize_img5)
+picture_6 =ImageTk.PhotoImage(resize_img6)
+picture_7 =ImageTk.PhotoImage(resize_img7)
+picture_8 =ImageTk.PhotoImage(resize_img8)
+picture_9 =ImageTk.PhotoImage(resize_img9)
+picture_10 =ImageTk.PhotoImage(resize_img10)
+picture_11=ImageTk.PhotoImage(resize_img11)
+picture_12 =ImageTk.PhotoImage(resize_img12)
+picture_13 =ImageTk.PhotoImage(resize_img13)
+picture_14 =ImageTk.PhotoImage(resize_img14)
+picture_15 =ImageTk.PhotoImage(resize_img15)
+
+# list of Images 
+
+images_list=[picture_1,picture_2,picture_3,picture_4,picture_5,
+             picture_6,picture_7,picture_8,picture_9,picture_10,
+             picture_11,picture_12,picture_13,picture_14,picture_15]
+
+# Status Bar
+stuts_Bar= Label(root,text="Image 1 of"+ str(len(images_list)),bd=1,relief=SUNKEN , anchor=W)
+
+# label for image veiw 
+my_label= Label(image=picture_1)
+my_label.grid(row=0,column=0,columnspan=3)
+
+# functions For Buttons
+def forward(image_number):
+    global my_label
+    global button_Forward
+    global button_Back
+    
+    my_label.grid_forget()
+    my_label=Label(image=images_list[image_number-1])
+    button_Forward =Button( root , text='>>', command=lambda:forward(image_number+1))
+    button_Back = Button(root,text="<<",command=lambda:back(image_number-1))
+    
+
+    if image_number==15:
+        button_Forward=Button( root , text='>>',state=DISABLED)
+
+    my_label.grid(row=0,column=0,columnspan=3)
+    button_Forward.grid(row=1,column=2)
+    button_Back.grid(row=1,column=0)
+
+    stuts_Bar= Label(root,text="Image "+ str(image_number) + "of"+ str(len(images_list)),bd=1,relief=SUNKEN , anchor=W)
+    stuts_Bar.grid(row=2,column=0,columnspan=3, sticky= W+E) 
+
+
+def back(image_number):
+    global my_label
+    global button_Forward
+    global button_Back
+    my_label.grid_forget()
+    my_label=Label(image=images_list[image_number-1])
+    button_Forward =Button( root , text='>>', command=lambda:forward(image_number+1))
+    button_Back = Button(root,text="<<",command=lambda:back(image_number-1))
+
+    if image_number==1:
+        button_Back=Button( root , text='>>',state=DISABLED)
+    
+
+    my_label.grid(row=0,column=0,columnspan=3)
+    button_Forward.grid(row=1,column=2)
+    button_Back.grid(row=1,column=0)
+
+    stuts_Bar= Label(root,text="Image " +str(image_number)+"of"+ str(len(images_list)),bd=1,relief=SUNKEN , anchor=W)
+    stuts_Bar.grid(row=2,column=0,columnspan=3, sticky= W+E) 
+
+# Buttons For Swaping Left and Right and Exit The Programm
+button_Back=Button(root,text='<<',command=back,state=DISABLED)
+button_Forward =Button(root,text='>>',command=lambda:forward(2))
+button_quit=Button(root,text='Exit Program',command=root.quit)
+
+#  Showing Buttons On Screen
+button_Back.grid(row=1,column=0)
+button_quit.grid(row=1,column=1)
+button_Forward.grid(row=1,column=2 ,pady=10)
+stuts_Bar.grid(row=2,column=0,columnspan=3, sticky= W+E) 
+
+
+root.mainloop()
